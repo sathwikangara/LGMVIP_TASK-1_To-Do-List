@@ -36,7 +36,6 @@ const displayTasks = () => {
     taskInnerDiv.classList.add("task");
     taskInnerDiv.setAttribute("id", key);
     taskInnerDiv.innerHTML = `<span id="taskname">${key.split("_")[1]}</span>`;
-    //localstorage would store boolean as string so we parse it to boolean back
     let editButton = document.createElement("button");
     editButton.classList.add("edit");
     editButton.innerHTML = `<i class="fa-solid fa-pen-to-square"></i>`;
@@ -68,14 +67,12 @@ const displayTasks = () => {
   editTasks = document.getElementsByClassName("edit");
   Array.from(editTasks).forEach((element, index) => {
     element.addEventListener("click", (e) => {
-      //Stop propagation to outer elements (if removed when we click delete eventually the click will move to the parent)
       e.stopPropagation();
       //disable other edit buttons when one task is being edited
       disableButtons(true);
       //update input value and remove div
       let parent = element.parentElement;
       newTaskInput.value = parent.querySelector("#taskname").innerText;
-      //set updateNote to the task that is being edited
       updateNote = parent.id;
       //remove task
       parent.remove();
@@ -87,7 +84,6 @@ const displayTasks = () => {
   Array.from(deleteTasks).forEach((element, index) => {
     element.addEventListener("click", (e) => {
       e.stopPropagation();
-      //Delete from local storage and remove div
       let parent = element.parentElement;
       removeTask(parent.id);
       parent.remove();
